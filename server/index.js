@@ -22,7 +22,7 @@ app.all('*', (req, res) => {
   res.status(404).json({
     status: 'fail',
     message: 'Route unavailable on this server',
-  })
+  });
 });
 
 app.use((err, req, res) => {
