@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import cors from 'cors';
+import routes from './routes';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,6 +18,8 @@ app.get('/api/v1', (req, res) => {
     message: 'Welcome to Shopmon API version 1',
   });
 });
+
+app.use('/api/v1', routes);
 
 app.all('*', (req, res) => {
   res.status(404).json({
