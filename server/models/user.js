@@ -12,17 +12,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     imageUrl: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     position: {
       type: DataTypes.STRING,
       allowNull: false,
-      values: ['owner', 'employee', 'manager'],
     },
     role: {
       type: DataTypes.STRING,
-      allowNull: false,
-      values: ['user', 'admin', 'super'],
+      allowNull: true,
     },
     verified: {
       type: DataTypes.BOOLEAN,

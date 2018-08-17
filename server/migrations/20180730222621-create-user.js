@@ -27,13 +27,11 @@ module.exports = {
     position: {
       type: Sequelize.STRING,
       allowNull: false,
-      values: ['owner', 'employee', 'manager'],
     },
     role: {
       type: Sequelize.STRING,
-      allowNull: false,
+      allowNull: true,
       default: 'user',
-      values: ['user', 'admin', 'super'],
     },
     verified: {
       type: Sequelize.BOOLEAN,
