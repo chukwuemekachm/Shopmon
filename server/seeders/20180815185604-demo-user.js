@@ -20,6 +20,16 @@ module.exports = {
       createdAt: 'NOW()',
       updatedAt: 'NOW()',
     },
+    {
+      username: 'drille',
+      email: 'drille@test.com',
+      businessSlug: 'test-business-u9uue8u88h',
+      role: 'user',
+      position: 'employee',
+      verified: true,
+      createdAt: 'NOW()',
+      updatedAt: 'NOW()',
+    },
   ], {}),
 
   down: queryInterface => queryInterface.bulkDelete('Users', null, {}),

@@ -2,7 +2,7 @@ import Validator from 'validatorjs';
 
 class AuthValidation {
   /**
-   * @description Validates an email in the request body
+   * @description Validates an email and position in the request body
    *
    * @param {Object} req The HTTP request object
    * @param {Object} res The HTTP response object
@@ -11,6 +11,7 @@ class AuthValidation {
   static async validateEmail(req, res, next) {
     const userProperties = {
       email: 'required|email',
+      position: 'alpha|min:4|max:20',
     };
     const validator = new Validator(req.body, userProperties);
     validator.passes(() => next());
