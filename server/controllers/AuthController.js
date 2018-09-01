@@ -21,10 +21,12 @@ class AuthController {
       { verified: true },
       { returning: true, where: { email } },
     ).then(async ([, [user]]) => {
-      const { username, role, position } = user;
+      const {
+        username, role, businessSlug, position,
+      } = user;
       const token = await JwtHelper.signToken({
         user: {
-          email, username, role, position,
+          email, username, role, position, businessSlug,
         },
       }, '120h');
       return res.status(200).json({

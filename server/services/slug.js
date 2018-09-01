@@ -17,4 +17,18 @@ const createSlug = async (businessName) => {
   return businessNameSlug;
 };
 
+/**
+ * @description Generates a random String
+ *
+ * @returns {String} The random string
+ */
+const randomGenerator = () => {
+  let string = '';
+  while (string.length < 9) {
+    string += randomString[Math.floor((Math.random() * 61) + 0)];
+  }
+  return string;
+};
+
+export const generateString = randomGenerator;
 export default createSlug;
