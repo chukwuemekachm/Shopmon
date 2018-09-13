@@ -16,5 +16,6 @@ authRouter.post(
   BusinessController.createBusiness,
   AuthController.signUpUser,
 );
+authRouter.post('/login', AuthValidation.validateLogin, AuthController.loginUser);
 
 export default authRouter;
