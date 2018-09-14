@@ -110,6 +110,65 @@ class AuthController {
       email, username, businessSlug, position, role, imageUrl,
     };
   }
+
+  /**
+   * @description Authenticates the credentials of a user
+   *
+   * @param {Object} req The HTTP request object
+   * @param {Object} res The HTTP response object
+   * @param {Object} next The errorhandler on index.js
+   */
+  static async loginUser(req, res, next) {
+    const { email, username, password } = req.body;
+    User.findOne({
+      where: { $or: [{ email }, { username }] },
+    }).then(async (user) => {
+      if (!user) {
+        return res.status(401).json({
+          status: 'fail',
+          errors: AuthController.userNotFound(username, email),
+          message: 'Your login failed.',
+        });
+      }
+      const hashValue = bcryptjs.compareSync(password, user.password);
+      if (hashValue) {
+        if (user.verified) {
+          const { role, position, businessSlug } = user;
+          return res.status(200).json({
+            status: 'success',
+            user: AuthController.stripUser(user),
+            token: await JwtHelper.signToken({
+              user: {
+                email: user.email, username: user.username, role, position, businessSlug,
+              },
+            }, '120h'),
+            message: 'Your login was successful.',
+          });
+        }
+        return res.status(401).json({
+          status: 'fail',
+          errors: { email: ['You have to verify your email before you can login.'] },
+          message: 'Your login failed.',
+        });
+      }
+      return res.status(401).json({
+        status: 'fail',
+        errors: { password: ['The password is incorrect.'] },
+        message: 'Your login failed.',
+      });
+    }).catch(() => next(error));
+  }
+
+  static userNotFound(username, email) {
+    if (username) {
+      return {
+        username: [`No user with ${username} exists.`],
+      };
+    }
+    return {
+      email: [`No user with ${email} exists.`],
+    };
+  }
 }
 
 export default AuthController;

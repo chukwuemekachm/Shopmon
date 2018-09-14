@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+
 module.exports = {
   up: queryInterface => queryInterface.bulkInsert('Users', [
     {
@@ -6,6 +8,7 @@ module.exports = {
       businessSlug: 'test-business-u9uue8u838',
       role: 'user',
       position: 'owner',
+      password: bcrypt.hashSync('Password123', 10),
       verified: false,
       createdAt: 'NOW()',
       updatedAt: 'NOW()',
@@ -16,6 +19,7 @@ module.exports = {
       businessSlug: 'test-business-u9uue8u838',
       role: 'user',
       position: 'employee',
+      password: bcrypt.hashSync('Password123', 10),
       verified: true,
       createdAt: 'NOW()',
       updatedAt: 'NOW()',
@@ -26,6 +30,7 @@ module.exports = {
       businessSlug: 'test-business-u9uue8u88h',
       role: 'user',
       position: 'employee',
+      password: bcrypt.hashSync('Password123', 10),
       verified: true,
       createdAt: 'NOW()',
       updatedAt: 'NOW()',
